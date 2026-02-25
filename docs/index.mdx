@@ -1,0 +1,49 @@
+---
+overview: true
+title: Overview
+---
+
+# file-view
+
+基于 React 文件预览组件库。
+
+## 特性
+
+- PDF 文件预览与懒加载分页
+- 缩放、旋转、下载、全屏
+- 基于 antd 的 UI 组件
+- TypeScript 类型支持
+
+## 安装
+
+```bash
+pnpm add file-view
+```
+
+## 依赖
+
+需要安装以下 peer dependencies：
+
+- `react` >= 16.9.0
+- `react-dom` >= 16.9.0
+- `antd`
+- `react-pdf`
+- `@ant-design/icons`
+- `ahooks`
+
+## 快速开始
+
+```jsx
+import { PdfView } from 'file-view';
+
+function App() {
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <PdfView
+        url="https://example.com/document.pdf"
+        fileName="document.pdf"
+      />
+    </div>
+  );
+}
+```

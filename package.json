@@ -1,0 +1,56 @@
+{
+  "name": "@luoluo/file-view",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "doc": "rspress dev",
+    "doc:build": "rspress build",
+    "doc:preview": "rspress preview",
+    "format": "prettier --write .",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@rsbuild/plugin-react": "^1.4.5",
+    "@rsbuild/plugin-sass": "^1.5.0",
+    "@rslib/core": "^0.19.6",
+    "@rspress/core": "^2.0.3",
+    "@rspress/plugin-api-docgen": "^2.0.3",
+    "@rspress/plugin-preview": "^2.0.3",
+    "@types/node": "^24.10.13",
+    "@types/react": "^19.2.14",
+    "eslint": "^9.39.2",
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "rsbuild-plugin-workspace-dev": "^0.1.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.55.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^6.1.0",
+    "@rspack/core": "^1.7.6",
+    "ahooks": "^3.9.6",
+    "antd": "^6.3.1",
+    "pdfjs-dist": "5.3.31",
+    "react-pdf": "10.0.1"
+  }
+}

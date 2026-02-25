@@ -1,0 +1,68 @@
+# PdfView
+
+PDF 文件预览组件，支持缩放、旋转、下载、全屏等功能。
+
+## 基础用法
+
+传入 PDF 文件的 URL 即可预览：
+
+```jsx preview
+import React from 'react';
+import { PdfView } from '@luoluo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '400px', height: '600px' }}>
+      <PdfView
+        url="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf"
+        fileName="compressed.tracemonkey-pldi-09.pdf"
+      />
+    </div>
+  );
+};
+```
+
+## 自定义左侧区域
+
+通过 `leftDom` 属性可在工具栏左侧插入自定义内容：
+
+```jsx preview
+import React from 'react';
+import { PdfView } from '@luoluo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '500px' }}>
+      <PdfView
+        url="https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf"
+        fileName="document.pdf"
+        leftDom={<span style={{ color: '#7c87a6', fontSize: 14 }}>PDF 预览</span>}
+      />
+    </div>
+  );
+};
+```
+
+## 非 PDF 文件
+
+当 URL 指向非 PDF 文件时，会显示「文件无法预览」提示，并支持下载：
+
+```jsx preview
+import React from 'react';
+import { PdfView } from '@luoluo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '400px' }}>
+      <PdfView
+        url="https://example.com/image.png"
+        fileName="image.png"
+      />
+    </div>
+  );
+};
+```
+
+## API
+
+<API moduleName="PdfView" />
