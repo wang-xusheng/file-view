@@ -1,6 +1,6 @@
 {
-  "name": "@luoluo/file-view",
-  "version": "1.0.0",
+  "name": "@luo-luo/file-view",
+  "version": "0.0.1",
   "type": "module",
   "exports": {
     ".": {
