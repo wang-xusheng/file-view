@@ -20,7 +20,7 @@ import { downloadFile, redirectToUrl } from '../utils'
 import { useDebounceEffect, useSize } from 'ahooks'
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString()
-export interface AttachViewProps {
+export interface PdfViewProps {
   /**
    * PDF 文件的 URL 地址。若 URL 后缀不是 `.pdf`，将显示「文件无法预览」提示。
    */
@@ -37,7 +37,7 @@ export interface AttachViewProps {
 
 const DEFAULT_SCALE = 0.9
 
-const PdfView: React.FC<AttachViewProps> = (props) => {
+const PdfView: React.FC<PdfViewProps> = (props) => {
   const { url, fileName, leftDom } = props
 
   const pdfOptions = useMemo(
@@ -151,11 +151,11 @@ const PdfView: React.FC<AttachViewProps> = (props) => {
   }, [])
 
   return (
-    <div className="attach-view" ref={attachViewRef}>
+    <div className="pdf-view" ref={attachViewRef}>
       {/* --- 控制栏 --- */}
-      <div className="attach-view-tools">
-        <div className="attach-view-tools-left">{leftDom}</div>
-        <div className="attach-view-tools-right">
+      <div className="pdf-view-tools">
+        <div className="pdf-view-tools-left">{leftDom}</div>
+        <div className="pdf-view-tools-right">
           <div className="rotate-buttons btn-28">
             <Button
               className="custom-button-base-style"
