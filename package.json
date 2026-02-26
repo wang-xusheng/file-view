@@ -1,6 +1,6 @@
 {
   "name": "@luo-luo/file-view",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "exports": {
     ".": {
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@rsbuild/plugin-node-polyfill": "^1.4.4",
     "@rsbuild/plugin-react": "^1.4.5",
     "@rsbuild/plugin-sass": "^1.5.0",
     "@rslib/core": "^0.19.6",
@@ -52,7 +53,11 @@
     "@rspack/core": "^1.7.6",
     "ahooks": "^3.9.6",
     "antd": "^6.3.1",
+    "dayjs": "^1.11.19",
+    "iconv-lite": "^0.7.2",
+    "msg-parser-wasm": "0.0.4-beta",
     "pdfjs-dist": "5.3.31",
-    "react-pdf": "10.0.1"
+    "react-pdf": "10.0.1",
+    "rtf-stream-parser": "^3.8.1"
   }
 }

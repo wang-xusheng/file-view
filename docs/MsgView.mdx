@@ -1,0 +1,48 @@
+# MsgView
+
+Outlook `.msg` 邮件文件预览组件，支持解析邮件主题、发件人、收件人、抄送、正文（HTML / RTF / 纯文本）及附件，并提供下载功能。
+
+## 基础用法
+
+传入 `.msg` 文件的 URL 即可预览邮件内容：
+
+```jsx preview
+import React from 'react';
+import { MsgView } from '@luo-luo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <MsgView
+        url="https://raw.githubusercontent.com/TeamMsgExtractor/msg-extractor/refs/heads/master/example-msg-files/unicode.msg"
+        fileName="test_email.msg"
+      />
+    </div>
+  );
+};
+```
+
+## 自定义左侧区域
+
+通过 `leftDom` 属性可在工具栏左侧插入自定义内容：
+
+```jsx preview
+import React from 'react';
+import { MsgView } from '@luo-luo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <MsgView
+        url="https://raw.githubusercontent.com/TeamMsgExtractor/msg-extractor/refs/heads/master/example-msg-files/unicode.msg"
+        fileName="邮件预览.msg"
+        leftDom={<span style={{ color: '#7c87a6', fontSize: 14 }}>邮件预览</span>}
+      />
+    </div>
+  );
+};
+```
+
+## API
+
+<API moduleName="MsgView" />

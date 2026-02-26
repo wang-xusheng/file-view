@@ -1,4 +1,7 @@
 import * as path from 'node:path';
+// AIGC START
+import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
+// AIGC END
 import { pluginSass } from '@rsbuild/plugin-sass';
 import { defineConfig } from '@rspress/core';
 import { pluginApiDocgen } from '@rspress/plugin-api-docgen';
@@ -16,6 +19,9 @@ export default defineConfig({
       pluginWorkspaceDev({
         startCurrent: true,
       }),
+      // AIGC START
+      pluginNodePolyfill(),
+      // AIGC END
     ],
   },
   plugins: [
