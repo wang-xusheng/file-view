@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build with Rspress
-        run: pnpm run doc:build
+        run:  pnpm run build && pnpm run doc:build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
