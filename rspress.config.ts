@@ -1,7 +1,5 @@
 import * as path from 'node:path';
-// AIGC START
 import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
-// AIGC END
 import { pluginSass } from '@rsbuild/plugin-sass';
 import { defineConfig } from '@rspress/core';
 import { pluginApiDocgen } from '@rspress/plugin-api-docgen';
@@ -10,18 +8,17 @@ import { pluginWorkspaceDev } from 'rsbuild-plugin-workspace-dev';
 
 export default defineConfig({
   root: path.join(__dirname, 'docs'),
+  base: '/file-view/',
   title: 'file-view',
   lang: 'zh',
-  ssg: false,
+  ssg: true,
   builderConfig: {
     plugins: [
       pluginSass(),
       pluginWorkspaceDev({
         startCurrent: true,
       }),
-      // AIGC START
       pluginNodePolyfill(),
-      // AIGC END
     ],
   },
   plugins: [
