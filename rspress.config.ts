@@ -11,7 +11,7 @@ export default defineConfig({
   base: '/file-view/',
   title: 'file-view',
   lang: 'zh',
-  ssg: true,
+  ssg: false,
   builderConfig: {
     plugins: [
       pluginSass(),
