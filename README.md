@@ -1,6 +1,13 @@
 # @luo-luo/file-view
 
-基于 React 的文件预览组件库，支持 PDF 预览、缩放、旋转、下载、全屏等功能。
+基于 React 的文件预览组件库.
+| 文件类型 | 内部依赖 | 预览组件 |
+|--------|---------|---------|
+| .pdf | react-pdf、pdf.js | PdfView |
+| .msg | msg-parser-wasm | MsgView |
+
+...（photo,excel,word...）持续更新中...
+
 
 ## 安装
 
@@ -26,7 +33,7 @@ import { PdfView } from '@luo-luo/file-view';
 
 | 属性 | 类型 | 说明 |
 |------|------|------|
-| `url` | `string` | PDF 文件地址，后缀非 `.pdf` 时显示无法预览提示 |
+| `url` | `string` | 文件地址 |
 | `fileName` | `string` | 文件名，用于下载默认名称及弹窗标题 |
 | `leftDom` | `React.ReactNode` | 工具栏左侧自定义内容 |
 
