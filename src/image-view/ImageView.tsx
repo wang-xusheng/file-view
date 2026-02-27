@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { fabric } from 'fabric'
 import { useDebounce, useEventListener, useSize } from 'ahooks'
-import {  Button, Image } from 'antd'
+import {  Button, Image, Spin } from 'antd'
 import {
   FullscreenOutlined,
   RotateLeftOutlined,
@@ -13,9 +13,18 @@ import {
 import './index.scss'
 import { loadHEICAsImage } from './loadImage'
 
-export interface IPhotoViewProps {
+export interface ImageViewProps {
+  /**
+   * 图片的 URL 地址。
+   */
   url: string
+  /**
+   * 渲染在工具栏左侧的自定义内容，可用于展示文件名、标题或操作按钮等。
+   */
   leftDom?: React.ReactNode
+  /**
+   * 文件名称，用于下载时的默认文件名.
+   */
   fileName?: string
 }
 
@@ -26,13 +35,13 @@ interface IImageState {
   zoomLevel: number
 }
 
-const PhotoView: React.FC<IPhotoViewProps> = ({ url, leftDom }) => {
+const ImageView: React.FC<ImageViewProps> = ({ url, leftDom }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasInstanceRef = useRef<fabric.Canvas | null>(null)
 
   const [zoomScale, setZoomScale] = useState('100%')
-
+  const [loading, setLoading] = useState(true)
   const [imageState, setImageState] = useState<IImageState>({
     instance: null,
     initialScale: 1,
@@ -160,7 +169,7 @@ const PhotoView: React.FC<IPhotoViewProps> = ({ url, leftDom }) => {
       // 加载图片并调整大小
       const loadImage = async () => {
         let imageUrlToLoad = url
-
+        setLoading(true)
         // 如果是 HEIC 格式，先转换
         if (isHEICImage(url)) {
           try {
@@ -207,6 +216,7 @@ const PhotoView: React.FC<IPhotoViewProps> = ({ url, leftDom }) => {
             })
           }
         })
+        setLoading(false)
       }
 
       loadImage()
@@ -310,13 +320,17 @@ const PhotoView: React.FC<IPhotoViewProps> = ({ url, leftDom }) => {
         </div>
       </div>
       <div ref={containerRef} className="photo-canvas-wrapper">
-        <canvas ref={canvasRef} />
+        <Spin
+          spinning={loading}
+          description="加载中..."
+        >
+          <canvas ref={canvasRef} />
+        </Spin>
       </div>
       <Image
         width={200}
         style={{ display: 'none' }}
         alt="basic image"
-        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png?x-oss-process=image/blur,r_50,s_50/quality,q_1/resize,m_mfit,h_200,w_200"
         preview={{
           open: previewVisible,
           src: imageUrlEncoded.current,
@@ -329,4 +343,4 @@ const PhotoView: React.FC<IPhotoViewProps> = ({ url, leftDom }) => {
   )
 }
 
-export default PhotoView
+export default ImageView
