@@ -1,0 +1,23 @@
+## ImageView
+
+图片预览组件，支持缩放、旋转、下载、全屏等功能。
+
+## 基础用法
+
+传入图片的 URL 即可预览：
+
+```jsx preview
+import React from 'react';
+import { ImageView } from '@luo-luo/file-view';
+
+export default () => {
+    return (
+        <div style={{ width: '100%', height: '600px' }}>
+            <ImageView
+                url="https://img.freepik.com/free-photo/professional-photographer-takes-photos-with-camera-tripod-rocky-peak-sunset_335224-433.jpg?t=st=1772193641~exp=1772197241~hmac=c470447c36790996ad9224b146b2e169bbfb6977370f760c0853a40a36409860&w=1480"
+                fileName="image.png"
+            />
+        </div>
+    )
+}
+```

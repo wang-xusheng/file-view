@@ -42,6 +42,10 @@ export default defineConfig({
               from: 'node_modules/pdfjs-dist/build/pdf.worker.min.mjs',
               to: 'pdfjs-dist/build/pdf.worker.min.mjs',
             },
+            {
+              from: 'src/assets/libheif-wasm/libheif.wasm',
+              to: 'assets/libheif-wasm/libheif.wasm',
+            },
           ],
         }),
       ],
