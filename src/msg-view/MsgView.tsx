@@ -133,6 +133,7 @@ const MsgView: React.FC<MsgViewProps> = (props) => {
         <div className="msg-view-tools-right">
           <Button
             size="small"
+            type="text"
             icon={<DownloadOutlined />}
             onClick={() => url && downloadFile(url, fileName)}
           />

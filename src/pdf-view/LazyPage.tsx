@@ -60,7 +60,7 @@ const LazyPage = (props: LazyPageProps) => {
         />
       ) : (
         <div className="placeholder-content" style={{ width, height }}>
-          <Spin tip={`加载第 ${pageNumber} 页中...`} />
+          <Spin description={`加载第 ${pageNumber} 页中...`} />
         </div>
       )}
     </div>

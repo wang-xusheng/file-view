@@ -4,7 +4,14 @@ title: Overview
 ---
 
 # file-view
-基于 React 文件预览组件库。
+基于 React 文件预览组件库。  
+
+类型支持如下：
+| 文件类型 | 内部依赖 | 预览组件 |
+|--------|---------|---------|
+| .pdf | react-pdf、pdf.js | PdfView |
+| .msg | msg-parser-wasm | MsgView |
+| (.avif、 .webp、 .png、 .jpg、 .jpeg...)及.heic | fabric、libheif | ImageView |
 
 
 ## 安装

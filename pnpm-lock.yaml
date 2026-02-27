@@ -20,9 +20,15 @@ importers:
       antd:
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      comlink:
+        specifier: ^4.4.2
+        version: 4.4.2
       dayjs:
         specifier: ^1.11.19
         version: 1.11.19
+      fabric:
+        specifier: 5.5.2-browser
+        version: 5.5.2-browser
       iconv-lite:
         specifier: ^0.7.2
         version: 0.7.2
@@ -63,6 +69,9 @@ importers:
       '@rspress/plugin-preview':
         specifier: ^2.0.3
         version: 2.0.3(@module-federation/runtime-tools@0.22.0)(@rspress/core@2.0.3(@module-federation/runtime-tools@0.22.0)(@types/react@19.2.14)(core-js@3.47.0))(core-js@3.47.0)(react-router-dom@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
+      '@types/fabric':
+        specifier: 5.3.10
+        version: 5.3.10
       '@types/node':
         specifier: ^24.10.13
         version: 24.10.13
@@ -1173,6 +1182,9 @@ packages:
   '@types/extend@3.0.4':
     resolution: {integrity: sha512-ArMouDUTJEz1SQRpFsT2rIw7DeqICFv5aaVzLSIYMYQSLcwcGOfT3VyglQs/p7K3F7fT4zxr0NWxYZIdifD6dA==}
 
+  '@types/fabric@5.3.10':
+    resolution: {integrity: sha512-fsJIuVkU+B2AnmQh+Ml2X0ax3NmRIqLvEXmZ+squX60HaF89TvdIP6tI6Uk5srXaauswTwPOOfWE7k2QboUZCg==}
+
   '@types/hast@2.3.10':
     resolution: {integrity: sha512-McWspRw8xx8J9HurkVBfYj0xKoE25tOFlHGdx4MJ5xORQrMGZNqJhVQWaIbm6Oyla5kYOXtDiopzKRJzEOkwJw==}
 
@@ -1532,6 +1544,9 @@ packages:
   colorjs.io@0.5.2:
     resolution: {integrity: sha512-twmVoizEW7ylZSN32OgKdXRmo1qg+wT5/6C3xu5b9QsWzSFAhHLn2xd8ro0diCsKfCj1RdaTP/nrcW+vAoQPIw==}
 
+  comlink@4.4.2:
+    resolution: {integrity: sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==}
+
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
 
@@ -1809,6 +1824,10 @@ packages:
 
   extend@3.0.2:
     resolution: {integrity: sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==}
+
+  fabric@5.5.2-browser:
+    resolution: {integrity: sha512-YAp0AmkkDNweR39NkfZRTrn3HvhZALFLydzfGxCzaethO7TL3T0G1TDIpzsDbwDuvcMRR38AKkDp2fKPwJhqnA==}
+    engines: {node: '>=14.0.0'}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -4976,6 +4995,8 @@ snapshots:
 
   '@types/extend@3.0.4': {}
 
+  '@types/fabric@5.3.10': {}
+
   '@types/hast@2.3.10':
     dependencies:
       '@types/unist': 2.0.11
@@ -5467,6 +5488,8 @@ snapshots:
 
   colorjs.io@0.5.2: {}
 
+  comlink@4.4.2: {}
+
   comma-separated-tokens@2.0.3: {}
 
   compute-scroll-into-view@3.1.1: {}
@@ -5825,6 +5848,8 @@ snapshots:
       is-extendable: 0.1.1
 
   extend@3.0.2: {}
+
+  fabric@5.5.2-browser: {}
 
   fast-deep-equal@3.1.3: {}
 

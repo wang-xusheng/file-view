@@ -193,27 +193,27 @@
 }
 
 // ---- 自定义按钮基础样式（覆盖组件库默认） ----
-.custom-button-base-style {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #7c87a6;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
-  transition: color 0.2s;
+// .custom-button-base-style {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: #7c87a6;
+//   background: transparent;
+//   border: none;
+//   box-shadow: none;
+//   cursor: pointer;
+//   transition: color 0.2s;
 
-  &:hover:not(:disabled) {
-    color: #2660ff;
-    background: transparent;
-  }
+//   &:hover:not(:disabled) {
+//     color: #2660ff;
+//     background: transparent;
+//   }
 
-  &:disabled {
-    color: #c9cdd4;
-    cursor: not-allowed;
-  }
-}
+//   &:disabled {
+//     color: #c9cdd4;
+//     cursor: not-allowed;
+//   }
+// }
 
 
 

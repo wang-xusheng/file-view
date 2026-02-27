@@ -158,17 +158,17 @@ const PdfView: React.FC<PdfViewProps> = (props) => {
         <div className="pdf-view-tools-right">
           <div className="rotate-buttons btn-28">
             <Button
-              className="custom-button-base-style"
               size="small"
+              type="text"
               icon={<DownloadOutlined />}
               onClick={() => url && downloadFile(url, fileName)}
             />
           </div>
           <div className="zoom-buttons">
             <Button
-              className="custom-button-base-style"
               disabled={!ispdf}
               size="small"
+              type="text"
               icon={<ZoomOutOutlined />}
               onClick={() => changeScale(-0.1)}
             />
@@ -176,34 +176,34 @@ const PdfView: React.FC<PdfViewProps> = (props) => {
               {`${Math.round(scale * 100)}%`}
             </span>
             <Button
-              className="custom-button-base-style"
               disabled={!ispdf}
               size="small"
+              type="text"
               icon={<ZoomInOutlined />}
               onClick={() => changeScale(0.1)}
             />
           </div>
           <div className="rotate-buttons btn-54">
             <Button
-              className="custom-button-base-style"
               disabled={!ispdf}
               size="small"
+              type="text"
               icon={<RotateLeftOutlined />}
               onClick={() => changeRotation(-90)}
             />
             <Button
-              className="custom-button-base-style"
               disabled={!ispdf}
               size="small"
+              type="text"
               icon={<RotateRightOutlined />}
               onClick={() => changeRotation(90)}
             />
           </div>
           <div className="rotate-buttons btn-28">
             <Button
-              className="custom-button-base-style"
               disabled={!ispdf}
               size="small"
+              type="text"
               icon={isFullscreen ? <FullscreenExitOutlined /> : <FullscreenOutlined />}
               onClick={() => setIsFullscreen(!isFullscreen)}
             />
