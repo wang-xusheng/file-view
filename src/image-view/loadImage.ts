@@ -1,5 +1,5 @@
 import { wrap, Remote } from 'comlink'
-import type { HeicWorkerApi } from '@/workers/heic-worker'
+import type { HeicWorkerApi } from '../workers/heic-worker'
 
 // Worker 实例和 API
 let worker: Worker | null = null
@@ -17,7 +17,7 @@ const initWorker = () => {
   }
 
   // 创建 Worker 实例
-  worker = new Worker(new URL('@/workers/heic-worker.ts', import.meta.url), {
+  worker = new Worker(new URL('./heic-worker.js', import.meta.url), {
     type: 'module',
   })
 

@@ -5,11 +5,6 @@ import { defineConfig } from '@rslib/core';
 import rspack from '@rspack/core';
 
 export default defineConfig({
-  source: {
-    entry: {
-      index: ['./src/**'],
-    },
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -17,14 +12,33 @@ export default defineConfig({
   },
   lib: [
     {
-      bundle: false,
+      bundle: true,
       dts: true,
       format: 'esm',
+      source: {
+        entry: {
+          index: './src/index.tsx',
+        },
+      },
+      output: {
+        target: 'web',
+        injectStyles: true,
+      },
+    },
+    {
+      bundle: true,
+      format: 'esm',
+      autoExternal: false,
+      source: {
+        entry: {
+          'heic-worker': './src/workers/heic-worker.ts',
+        },
+      },
+      output: {
+        target: 'web',
+      },
     },
   ],
-  output: {
-    target: 'web',
-  },
   tools: {
     rspack: {
       plugins: [

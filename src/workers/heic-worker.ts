@@ -1,7 +1,7 @@
 import { expose } from 'comlink'
-import { MainModule } from '@/assets/libheif-wasm/libheif.js'
+import { MainModule } from '../assets/libheif-wasm/libheif.js'
 
-const libheifPath = new URL('../assets/libheif-wasm/libheif.wasm', import.meta.url).toString()
+const libheifPath = new URL('./assets/libheif-wasm/libheif.wasm', import.meta.url).toString()
 // 动态导入 libheif.
 let libheifModule: MainModule | null = null
 let initPromise: Promise<void> | null = null
@@ -24,7 +24,7 @@ const initLibheif = async () => {
   initPromise = (async () => {
     try {
       // 动态导入 libheif
-      const libheif = (await import('@/assets/libheif-wasm/libheif.js')).default
+      const libheif = (await import('../assets/libheif-wasm/libheif.js')).default
 
       // 异步加载 WASM 文件
       const wasmResponse = await fetch(libheifPath)
