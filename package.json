@@ -6,7 +6,8 @@
     ".": {
       "types": "./dist/src/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./index.css": "./dist/index.css"
   },
   "types": "./dist/src/index.d.ts",
   "files": [

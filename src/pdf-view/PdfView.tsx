@@ -19,7 +19,7 @@ import './index.scss'
 import { downloadFile, redirectToUrl } from '../utils'
 import { useDebounceEffect, useSize } from 'ahooks'
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url).toString()
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 export interface PdfViewProps {
   /**
    * PDF 文件的 URL 地址。若 URL 后缀不是 `.pdf`，将显示「文件无法预览」提示。
@@ -42,8 +42,8 @@ const PdfView: React.FC<PdfViewProps> = (props) => {
 
   const pdfOptions = useMemo(
     () => ({
-      wasmUrl: `pdfjs-dist/wasm/`,
-      cMapUrl: 'pdfjs-dist/cmaps/',
+      wasmUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/wasm/`,
+      cMapUrl: `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/cmaps/`,
       cMapPacked: true,
     }),
     []
