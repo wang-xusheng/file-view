@@ -1,6 +1,6 @@
 {
   "name": "@luo-luo/file-view",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "type": "module",
   "exports": {
     ".": {
@@ -53,10 +53,13 @@
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
     "@rspack/core": "^1.7.6",
+    "@univerjs/preset-sheets-core": "^0.21.0",
+    "@univerjs/presets": "^0.21.0",
     "ahooks": "^3.9.6",
     "antd": "^6.3.1",
     "comlink": "^4.4.2",
     "dayjs": "^1.11.19",
+    "exceljs": "^4.4.0",
     "fabric": "5.5.2-browser",
     "iconv-lite": "^0.7.2",
     "msg-parser-wasm": "0.0.4-beta",

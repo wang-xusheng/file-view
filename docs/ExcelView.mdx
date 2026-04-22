@@ -1,0 +1,59 @@
+# ExcelView
+
+Excel `.xlsx` 文件预览组件，支持解析单元格数据、样式、合并单元格、多 Sheet 切换，并提供下载功能。
+
+## 基础用法
+
+传入 `.xlsx` 文件的 URL 即可预览表格内容：
+
+```jsx preview
+import React from 'react';
+import { ExcelView } from '@luo-luo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <ExcelView
+        url="/file-view/test.xlsx"
+        fileName="test.xlsx"
+        leftDom={<span style={{ fontSize: 14, fontWeight: 600, padding: '0 12px' }}>test.xlsx</span>}
+      />
+    </div>
+  );
+};
+```
+
+## 大数据量表格
+```jsx preview
+import React from 'react';
+import { ExcelView } from '@luo-luo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <ExcelView
+        url="/file-view/大数据表格.xlsx"
+        fileName="大数据表格.xlsx"
+        leftDom={<span style={{ fontSize: 14, fontWeight: 600, padding: '0 12px' }}>大数据表格.xlsx</span>}
+      />
+    </div>
+  );
+};
+```
+## 图表表格
+```jsx preview
+import React from 'react';
+import { ExcelView } from '@luo-luo/file-view';
+
+export default () => {
+  return (
+    <div style={{ width: '100%', height: '600px' }}>
+      <ExcelView
+        url="/file-view/数据分析.xlsx"
+        fileName="数据分析.xlsx"
+        leftDom={<span style={{ fontSize: 14, fontWeight: 600, padding: '0 12px' }}>数据分析.xlsx</span>}
+      />
+    </div>
+  );
+};
+```

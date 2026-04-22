@@ -13,6 +13,14 @@ export default defineConfig({
   lang: 'zh',
   ssg: false,
   builderConfig: {
+    resolve: {
+      alias: {
+        localforage: path.join(
+          __dirname,
+          'node_modules/.pnpm/localforage@1.10.0/node_modules/localforage/src/localforage.js',
+        ),
+      },
+    },
     plugins: [
       pluginSass(),
       pluginWorkspaceDev({
