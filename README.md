@@ -6,8 +6,9 @@
 | .pdf | react-pdf、pdf.js | PdfView |
 | .msg | msg-parser-wasm | MsgView |
 | (.avif、 .webp、 .png、 .jpg、 .jpeg...)及.heic | fabric、libheif | ImageView |
+| .xlsx、.csv | exceljs、@univerjs | ExcelView |
 
-...（photo,excel,word...）持续更新中...
+...（word...）持续更新中...
 
 
 ## 安装
