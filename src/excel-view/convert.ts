@@ -259,15 +259,125 @@ function extractSheetImages(
   return order.length ? { data, order } : null
 }
 
+// ============ CSV 解析 ============
+
+/** 解析 CSV 文本为二维字符串数组，支持 RFC 4180 双引号转义 */
+function parseCsvText(text: string): string[][] {
+  const rows: string[][] = []
+  let current = ''
+  let inQuotes = false
+  let row: string[] = []
+
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i]
+    if (inQuotes) {
+      if (char === '"') {
+        if (i + 1 < text.length && text[i + 1] === '"') {
+          current += '"'
+          i++
+        } else {
+          inQuotes = false
+        }
+      } else {
+        current += char
+      }
+    } else {
+      if (char === '"') {
+        inQuotes = true
+      } else if (char === ',') {
+        row.push(current)
+        current = ''
+      } else if (char === '\n') {
+        row.push(current)
+        current = ''
+        rows.push(row)
+        row = []
+      } else if (char === '\r') {
+        // skip
+      } else {
+        current += char
+      }
+    }
+  }
+
+  if (current || row.length) {
+    row.push(current)
+    rows.push(row)
+  }
+
+  return rows
+}
+
+/** 将 CSV 解析结果转换为 Univer IWorkbookData，自动推断数值类型 */
+function csvToWorkbookData(rows: string[][]): Partial<IWorkbookData> {
+  const sheetId = 'sheet_1'
+  const cellData: Record<number, Record<number, ICellData>> = {}
+  let maxCols = 0
+
+  for (let ri = 0; ri < rows.length; ri++) {
+    const row = rows[ri]
+    maxCols = Math.max(maxCols, row.length)
+    for (let ci = 0; ci < row.length; ci++) {
+      const val = row[ci]
+      if (val === '') continue
+      if (!cellData[ri]) cellData[ri] = {}
+      const num = Number(val)
+      if (!isNaN(num) && val.trim() !== '') {
+        cellData[ri][ci] = { v: num, t: CellValueType.NUMBER }
+      } else {
+        cellData[ri][ci] = { v: val, t: CellValueType.STRING }
+      }
+    }
+  }
+
+  return {
+    id: 'excel_preview',
+    name: 'CSV Preview',
+    appVersion: '1.0.0',
+    locale: LocaleType.ZH_CN,
+    styles: {},
+    sheetOrder: [sheetId],
+    sheets: {
+      [sheetId]: {
+        id: sheetId,
+        name: 'Sheet1',
+        rowCount: Math.max(rows.length + 20, 100),
+        columnCount: Math.max(maxCols + 5, 26),
+        defaultColumnWidth: 73,
+        defaultRowHeight: 23,
+        cellData,
+        rowData: {},
+        columnData: {},
+        mergeData: [],
+        tabColor: '',
+        hidden: BooleanNumber.FALSE,
+        showGridlines: BooleanNumber.TRUE,
+      },
+    },
+    resources: [],
+  }
+}
+
 // ============ 主转换入口 ============
 
+/** 根据文件名或 URL 后缀判断是否为 CSV 文件 */
+function isCsvFile(url: string, fileName?: string): boolean {
+  const name = (fileName || url).toLowerCase()
+  return name.endsWith('.csv')
+}
+
 /**
- * 从 URL 加载 .xlsx 文件，使用 ExcelJS 解析后转换为 Univer IWorkbookData。
- *
- * 转换流程：fetch → ArrayBuffer → ExcelJS Workbook → 逐 sheet 遍历行列 → IWorkbookData
+ * 从 URL 加载 .xlsx 或 .csv 文件，转换为 Univer IWorkbookData。
+ * 通过 fileName 或 URL 后缀自动识别文件类型。
  */
-export async function loadAndConvert(url: string): Promise<Partial<IWorkbookData>> {
+export async function loadAndConvert(url: string, fileName?: string): Promise<Partial<IWorkbookData>> {
   const resp = await fetch(url)
+
+  if (isCsvFile(url, fileName)) {
+    const text = await resp.text()
+    return csvToWorkbookData(parseCsvText(text))
+  }
+
   const buffer = await resp.arrayBuffer()
   const wb = new Workbook()
   await wb.xlsx.load(buffer)
@@ -275,7 +385,6 @@ export async function loadAndConvert(url: string): Promise<Partial<IWorkbookData
   const sheets: Record<string, Partial<IWorksheetData>> = {}
   const sheetOrder: string[] = []
   const drawingMap: Record<string, SheetImageData> = {}
-  // ExcelJS 的 media 数组按 imageId 索引获取图片 buffer
   const media = ((wb as unknown as { media: Array<{ type: string; name: string; extension: string; buffer: ArrayBuffer | Uint8Array }> }).media) ?? []
 
   for (const ws of wb.worksheets) {
@@ -286,14 +395,12 @@ export async function loadAndConvert(url: string): Promise<Partial<IWorkbookData
     const rowData: Record<number, { h?: number }> = {}
     const columnData: Record<number, { w?: number }> = {}
 
-    // ExcelJS 的 width 单位是字符宽度，乘 7.5 近似转为像素
     ws.columns.forEach((col, i) => {
       if (col.width) columnData[i] = { w: col.width * 7.5 }
     })
 
     ws.eachRow({ includeEmpty: true }, (row, rowNum) => {
       const ri = rowNum - 1
-      // ExcelJS 的 height 单位是磅，乘 1.333 转为像素（96dpi / 72dpi）
       if (row.height) rowData[ri] = { h: row.height * 1.333 }
 
       row.eachCell({ includeEmpty: true }, (cell, colNum) => {
@@ -308,7 +415,6 @@ export async function loadAndConvert(url: string): Promise<Partial<IWorkbookData
     })
 
     const mergeData: { startRow: number; startColumn: number; endRow: number; endColumn: number }[] = []
-    // ExcelJS 未在类型中暴露 merges，通过 model 访问
     const merges: string[] = (ws.model as unknown as Record<string, unknown>).merges as string[] ?? []
     for (const ref of merges) {
       const r = parseMerge(ref)
@@ -318,7 +424,6 @@ export async function loadAndConvert(url: string): Promise<Partial<IWorkbookData
     const imageData = extractSheetImages(ws, media, 'excel_preview', sheetId)
     if (imageData) drawingMap[sheetId] = imageData
 
-    // 额外预留行列空间，避免 Univer 渲染时出现空白截断
     sheets[sheetId] = {
       id: sheetId,
       name: ws.name,

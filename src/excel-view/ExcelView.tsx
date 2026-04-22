@@ -27,8 +27,8 @@ const ExcelView: React.FC<ExcelViewProps> = ({ url, fileName, leftDom }) => {
   const univerRef = useRef<{ dispose: () => void } | null>(null)
 
   const { data, loading, error } = useRequest(
-    () => (url ? loadAndConvert(url) : Promise.resolve(null)),
-    { refreshDeps: [url] },
+    () => (url ? loadAndConvert(url, fileName) : Promise.resolve(null)),
+    { refreshDeps: [url, fileName] },
   )
 
   useEffect(() => {
