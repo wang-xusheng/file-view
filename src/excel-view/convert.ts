@@ -198,6 +198,10 @@ const EMU_PER_PX = 9525
 interface SheetImageData {
   data: Record<string, unknown>
   order: string[]
+  /** 图片锚点覆盖的最大行号（用于扩展 sheet 行数，避免图片被截断） */
+  maxRow: number
+  /** 图片锚点覆盖的最大列号 */
+  maxCol: number
 }
 
 /**
@@ -217,6 +221,8 @@ function extractSheetImages(
 
   const data: Record<string, unknown> = {}
   const order: string[] = []
+  let maxRow = 0
+  let maxCol = 0
 
   for (const img of images) {
     const mediaItem = media[Number(img.imageId)]
@@ -226,6 +232,8 @@ function extractSheetImages(
     const source = bufferToDataUrl(mediaItem.buffer, mediaItem.extension)
 
     const { tl, br } = img.range
+    maxRow = Math.max(maxRow, br.nativeRow)
+    maxCol = Math.max(maxCol, br.nativeCol)
 
     const sheetTransform = {
       from: {
@@ -256,7 +264,7 @@ function extractSheetImages(
     order.push(drawingId)
   }
 
-  return order.length ? { data, order } : null
+  return order.length ? { data, order, maxRow, maxCol } : null
 }
 
 // ============ CSV 解析 ============
@@ -395,7 +403,7 @@ export async function loadAndConvert(url: string, fileName?: string): Promise<Pa
     const rowData: Record<number, { h?: number }> = {}
     const columnData: Record<number, { w?: number }> = {}
 
-    ws.columns.forEach((col, i) => {
+    ws.columns?.forEach((col, i) => {
       if (col.width) columnData[i] = { w: col.width * 7.5 }
     })
 
@@ -424,11 +432,14 @@ export async function loadAndConvert(url: string, fileName?: string): Promise<Pa
     const imageData = extractSheetImages(ws, media, 'excel_preview', sheetId)
     if (imageData) drawingMap[sheetId] = imageData
 
+    const imgMaxRow = imageData ? imageData.maxRow + 5 : 0
+    const imgMaxCol = imageData ? imageData.maxCol + 3 : 0
+
     sheets[sheetId] = {
       id: sheetId,
       name: ws.name,
-      rowCount: Math.max(ws.rowCount + 20, 100),
-      columnCount: Math.max(ws.columnCount + 5, 26),
+      rowCount: Math.max(ws.rowCount + 20, 100, imgMaxRow),
+      columnCount: Math.max(ws.columnCount + 5, 26, imgMaxCol),
       defaultColumnWidth: 73,
       defaultRowHeight: 23,
       cellData,
